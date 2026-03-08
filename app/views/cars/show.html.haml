@@ -1,0 +1,21 @@
+.max-w-4xl.mx-auto.px-4.py-12
+  = link_to '← Back to Inventory', cars_path, class: "text-indigo-600 hover:text-indigo-800 font-medium mb-6 inline-block"
+  .bg-white.rounded-3xl.shadow-xl.p-8.border.border-slate-100
+    .uppercase.tracking-wide.text-sm.text-indigo-500.font-semibold= @car.make
+    %h1.text-4xl.font-extrabold.text-slate-900.mt-2= @car.model
+    .mt-6.grid.grid-cols-2.gap-6
+      %div
+        %p.text-sm.text-slate-500 Year
+        %p.text-lg.font-medium.text-slate-900= @car.year
+      %div
+        %p.text-sm.text-slate-500 Mileage
+        %p.text-lg.font-medium.text-slate-900= "#{number_with_delimiter(@car.odometer)} km"
+    .mt-8.pt-8.border-t.border-slate-100
+      %p.text-3xl.font-bold.text-indigo-600= number_to_currency(@car.price)
+    .mt-6
+      %p.text-slate-600.leading-relaxed= @car.description
+    .mt-10.flex.gap-4
+      = link_to 'Edit Info', '#', class: "flex-1 text-center py-3 px-6 rounded-xl border border-slate-200 text-slate-700 font-semibold hover:bg-slate-50 transition"
+      = link_to 'Contact Seller', "mailto:test@example.com", class: "flex-1 text-center py-3 px-6 rounded-xl bg-slate-900 text-white font-semibold hover:bg-slate-800 transition"
+      = button_to 'Delete Car', car_path(@car), method: :delete, data: { confirm: 'Are you sure?' }, class: "mt-4 w-full text-center py-3 px-6 rounded-xl bg-red-50 text-red-600 font-semibold hover:bg-red-100 transition"
+      

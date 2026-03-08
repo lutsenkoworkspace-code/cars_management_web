@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :cars
   # Main application routes
   root "pages#home"
   get "help", to: "pages#help"

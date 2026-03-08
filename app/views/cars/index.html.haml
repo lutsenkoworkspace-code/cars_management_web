@@ -1,0 +1,22 @@
+.container.mx-auto.px-4.py-8
+  .flex.justify-between.items-center.mb-8
+    %h1.text-3xl.font-bold.text-gray-900 All Cars
+    = link_to 'Add New Car', new_car_path, class: "bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
+
+  - if notice.present?
+    .bg-green-100.border.border-green-400.text-green-700.px-4.py-3.rounded.mb-6
+      = notice
+
+  .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-6
+    - @cars.each do |car|
+      .bg-white.rounded-xl.shadow-md.overflow-hidden.border.border-gray-200
+        .p-6
+          %h2.text-xl.font-semibold= "#{car.make} #{car.model}"
+          %p.text-gray-500= "Year: #{car.year}"
+          .mt-4.flex.justify-between.items-center
+            %span.text-lg.font-bold.text-indigo-600= number_to_currency(car.price)
+            %span.text-sm.text-gray-400= "#{car.odometer} km"
+          %p.mt-4.text-gray-600.text-sm.line-clamp-2= car.description
+          .mt-6
+            = link_to 'View Details', car_path(car), class: "text-indigo-600 hover:text-indigo-900 text-sm font-medium"
+            
