@@ -1,6 +1,18 @@
 class CarsController < ApplicationController
   def index
-    @cars = Car.all
+    sort_logic = {
+      "price_asc"  => { column: "price", direction: "asc" },
+      "price_desc" => { column: "price", direction: "desc" },
+      "newest"     => { column: "created_at", direction: "desc" }
+    }
+
+    selection = sort_logic[params[:sort]] || sort_logic["newest"]
+
+    @cars = Car.order("#{selection[:column]} #{selection[:direction]}")
+              .page(params[:page])
+              .per(10)
+
+    @total_count = Car.count
   end
 
   def new

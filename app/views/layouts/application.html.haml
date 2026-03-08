@@ -1,0 +1,33 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
+    %title Car Advertisements Web
+    %meta{content: "width=device-width,initial-scale=1", name: "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body.bg-white.flex.flex-col.min-h-screen
+    %header.border-b.border-gray-100
+      .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+        .flex.justify-between.items-center.py-6
+          .flex.items-center
+            %span.text-xl.font-bold.text-gray-900 Car Advertisements Web
+          %nav.hidden.md:flex.space-x-8.items-center
+            = link_to "Home", root_path, class: nav_link_class(root_path)
+            = link_to "Cars", cars_path, class: nav_link_class(cars_path)
+            %a{href: "#", class: "text-gray-500 hover:text-gray-900"} Search
+            = link_to "Help", help_path, class: nav_link_class(help_path)
+            .h-6.w-px.bg-gray-200.mx-2
+            %a.text-gray-500.hover:text-gray-900{href: "#"} Login
+            %a.inline-flex.items-center.px-4.py-2.border.border-transparent.text-sm.font-medium.rounded-md.text-white.bg-blue-600.hover:bg-blue-700{href: "#"} Sign Up
+
+    %main.flex-grow
+      = yield
+
+    %footer.py-12.border-t.border-gray-100
+      .max-w-7xl.mx-auto.px-4.text-center
+        %p.text-sm.text-gray-400
+          © 2026 Car Advertisements Web. A Rails learning project.

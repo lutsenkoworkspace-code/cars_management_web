@@ -1,14 +1,26 @@
-.container.mx-auto.mt-28.px-5.flex.flex-col.items-start
-  %h1.text-4xl.font-bold.mb-4
-    Hello world!!!
-    
-  %p.text-lg.text-gray-700
-    Welcome to Car Advertisements Web.
+.max-w-5xl.mx-auto.px-4.py-16
+  %h1.text-4xl.font-bold.text-gray-900.mb-4 Welcome to Car Advertisements Web
+  %p.text-lg.text-gray-600.mb-12.max-w-3xl
+    Browse, search, and manage car advertisements. This is a simple learning project demonstrating basic CRUD operations and authentication patterns.
 
-  .mt-8.flex.flex-col.space-y-2
-    = link_to "Help Page", help_path, class: "text-blue-600 hover:underline"
-    
-    -# Placerholders
-    %span.text-gray-400 Cars List (Coming soon)
-    %span.text-gray-400 Search (Coming soon)
-    
+  .grid.grid-cols-1.md:grid-cols-2.gap-6
+    = link_to cars_path, class: "group p-8 border-2 border-blue-100 rounded-xl bg-blue-50/30 hover:bg-blue-50 transition" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2 Browse Cars
+      %p.text-gray-600 View all car advertisements with sorting and pagination
+
+    .p-8.border.border-gray-200.rounded-xl.hover:shadow-sm.transition
+      %h3.text-xl.font-bold.text-gray-900.mb-2 Search
+      %p.text-gray-600 Find specific cars using advanced search filters
+
+    .p-8.border.border-gray-200.rounded-xl.hover:shadow-sm.transition
+      %h3.text-xl.font-bold.text-gray-900.mb-2 Create Account
+      %p.text-gray-600 Sign up to save searches and manage your preferences
+
+    = link_to help_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2 Help
+      %p.text-gray-600 Learn how to use the platform and find answers to common questions
+
+  .mt-12.p-8.bg-gray-50.rounded-xl.border.border-gray-100
+    %h3.text-lg.font-bold.text-gray-900.mb-2 About This Project
+    %p.text-gray-600.text-sm.leading-relaxed
+      This is a reference implementation for learning Ruby on Rails with a Tailwind CSS frontend. The UI is intentionally minimal to focus on functionality and best practices.

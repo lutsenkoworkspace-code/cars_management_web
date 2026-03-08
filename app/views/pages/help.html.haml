@@ -1,11 +1,46 @@
-.container.mx-auto.mt-28.px-5.flex.flex-col.items-start
-  %h1.text-4xl.font-bold.mb-4
-    Help & Support
-    
-  %p.text-lg.text-gray-700.max-w-2xl
-    This page will contain instructions for the application. Here you can find information on how to manage car advertisements and use search filters.
+.max-w-3xl.mx-auto.px-4.py-12
+  %h1.text-3xl.font-bold.text-gray-900.mb-8 Help & Documentation
 
-  .mt-10
-    = link_to root_path, class: "inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors" do
-      %span ← Back to Home
-      
+  %section.mb-10
+    %h2.text-xl.font-bold.text-gray-900.mb-4 Getting Started
+    
+    .space-y-6
+      %div
+        %h3.font-bold.text-gray-900 1. Browse Cars
+        %p.text-gray-600.text-sm Navigate to the Cars page to view all available car advertisements. You can sort by price, year, or mileage, and use pagination to browse through listings.
+        
+      %div
+        %h3.font-bold.text-gray-900 2. Search for Specific Cars
+        %p.text-gray-600.text-sm Use the Search page to filter cars by make, model, year range, and price range. This allows you to quickly find cars that match your criteria.
+        
+      %div
+        %h3.font-bold.text-gray-900 3. Create an Account
+        %p.text-gray-600.text-sm Sign up for an account to save your searches and access them later. This is useful if you're actively looking for a car and want to track specific criteria.
+
+  %section.mb-10
+    %h2.text-xl.font-bold.text-gray-900.mb-6 Frequently Asked Questions
+    
+    .space-y-8
+      .border-b.border-gray-100.pb-6
+        %h3.font-bold.text-gray-900.mb-2 How do I save a search?
+        %p.text-gray-600.text-sm You must be logged in to save searches. After performing a search, click the "Save Search" button to store your search criteria.
+        
+      .border-b.border-gray-100.pb-6
+        %h3.font-bold.text-gray-900.mb-2 How do I sort the car listings?
+        %p.text-gray-600.text-sm On the Cars page, use the dropdown menu to select a sorting option. You can sort by price (low to high or high to low), year, or mileage.
+        
+      .border-b.border-gray-100.pb-6
+        %h3.font-bold.text-gray-900.mb-2 How many results are shown per page?
+        %p.text-gray-600.text-sm By default, 10 results are shown per page. Use the pagination controls at the bottom of the page to navigate through additional results.
+        
+      .pb-6
+        %h3.font-bold.text-gray-900.mb-2 Is this a real car marketplace?
+        %p.text-gray-600.text-sm No, this is a learning project demonstrating Rails and Tailwind CSS integration. All data is for demonstration purposes only.
+
+  .bg-gray-50.rounded-lg.p-6.border.border-gray-100.mb-8
+    %h3.font-bold.text-gray-900.mb-2 Need More Help?
+    %p.text-gray-600.text-sm This is a demo application for learning purposes. For questions about implementation, refer to the Rails documentation or the project README.
+
+  .mt-8
+    = back_to_home_button
+    
