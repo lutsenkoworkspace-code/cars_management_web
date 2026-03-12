@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     root "pages#home", as: :root
     resources :cars
     get "help", to: "pages#help", as: :help
+    get "search", to: "cars#search_page", as: :search_page
   end
 
   # Health check for uptime monitors

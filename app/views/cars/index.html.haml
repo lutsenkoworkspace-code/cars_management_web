@@ -1,7 +1,7 @@
 .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-12
   .flex.justify-between.items-end.mb-4
     %h1.text-3xl.font-bold.text-gray-900= t('cars.index.title')
-    = link_to t('cars.index.advanced_search'), "#search-form", class: "text-blue-600 text-sm font-semibold hover:underline"
+    = link_to t('cars.index.advanced_search'), search_page_path, class: "text-blue-600 text-sm font-semibold hover:underline"
 
   .flex.flex-col.sm:flex-row.justify-between.items-start.sm:items-center.mb-6.gap-4
     %p.text-sm.text-gray-500

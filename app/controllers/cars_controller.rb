@@ -1,19 +1,12 @@
 class CarsController < ApplicationController
-  before_action :set_car, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_car, only: %i[show edit update destroy]
+
   def index
-    sort_logic = {
-      "price_asc"  => { column: "price", direction: "asc" },
-      "price_desc" => { column: "price", direction: "desc" },
-      "newest"     => { column: "created_at", direction: "desc" }
-    }
-
-    selection = sort_logic[params[:sort]] || sort_logic["newest"]
-
-    @cars = Car.order("#{selection[:column]} #{selection[:direction]}")
+    @cars = CarsQuery.new(params).call
               .page(params[:page])
               .per(10)
 
-    @total_count = Car.count
+    @total_count = @cars.total_count
   end
 
   def new
@@ -24,23 +17,18 @@ class CarsController < ApplicationController
     @car = Car.new(car_params)
 
     if @car.save
-      redirect_to cars_path(@car, locale: I18n.locale), notice: t("cars.messages.created")
+      redirect_to car_path(@car), notice: t("cars.messages.created")
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  def show
-    @car
-  end
-
-  def edit
-    @car
-  end
+  def show; end
+  def edit; end
 
   def update
     if @car.update(car_params)
-      redirect_to car_path(@car, locale: I18n.locale), notice: t("cars.messages.updated")
+      redirect_to car_path(@car), notice: t("cars.messages.updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -50,6 +38,8 @@ class CarsController < ApplicationController
     @car.destroy
     redirect_to cars_path, notice: t("cars.messages.deleted"), status: :see_other
   end
+
+  def search_page; end
 
   private
 
