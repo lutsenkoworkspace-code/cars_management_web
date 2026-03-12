@@ -1,0 +1,38 @@
+= form_with model: @car, url: (@car.new_record? ? cars_path(locale: I18n.locale) : car_path(@car, locale: I18n.locale)), class: "space-y-6" do |f|
+  - if @car.errors.any?
+    .bg-red-50.text-red-500.p-4.rounded.mb-4
+      %h2= "#{pluralize(@car.errors.count, "error")} prohibited this car from being saved:"
+      %ul
+        - @car.errors.full_messages.each do |message|
+          %li= message
+
+  %div
+    = f.label :make, class: "block text-sm font-medium text-gray-700"
+    = f.text_field :make, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 border p-2"
+  
+  .grid.grid-cols-2.gap-4
+    %div
+      = f.label :model, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :model, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+    %div
+      = f.label :year, class: "block text-sm font-medium text-gray-700"
+      = f.number_field :year, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+      
+  .grid.grid-cols-2.gap-4
+    %div
+      = f.label :odometer, class: "block text-sm font-medium text-gray-700"
+      = f.number_field :odometer, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+    %div
+      = f.label :color, class: "block text-sm font-medium text-gray-700"
+      = f.text_field :color, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2", placeholder: "e.g. Blue"
+      
+  %div
+    = f.label :price, class: "block text-sm font-medium text-gray-700"
+    = f.number_field :price, step: 0.01, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+  %div
+    = f.label :description, class: "block text-sm font-medium text-gray-700"
+    = f.text_area :description, rows: 3, class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+  .mt-6
+    = f.submit t('actions.save'), class: "w-full bg-indigo-600 text-white font-bold py-2 px-4 rounded hover:bg-indigo-700 cursor-pointer"

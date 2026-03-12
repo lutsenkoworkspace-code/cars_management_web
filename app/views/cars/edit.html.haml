@@ -1,0 +1,7 @@
+.max-w-2xl.mx-auto.mt-10.p-6.bg-white.rounded-lg.shadow-md
+  .flex.justify-between.items-center.mb-6
+    %h1.text-2xl.font-bold= t('cars.form.edit_title')
+    = link_to t('actions.cancel'), car_path(id: @car.id, locale: I18n.locale), class: "text-sm text-gray-500 hover:text-gray-700"
+
+  = render "form", car: @car
+  

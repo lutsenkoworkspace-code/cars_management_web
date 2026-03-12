@@ -36,3 +36,11 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+/db/*.pgsql
+/db/*.sql
+/db/*.dump
+/.idea/
+/.vscode/
+.DS_Store
+/node_modules

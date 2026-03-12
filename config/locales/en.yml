@@ -1,31 +1,67 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app_name: "Car Advertisements Web"
+  activerecord:
+    attributes:
+      car:
+        make: "Make"
+        model: "Model"
+        year: "Year"
+        price: "Price"
+        odometer: "Mileage"
+        color: "Color"
+        description: "Description"
+
+  nav:
+    home: "Home"
+    cars: "Cars"
+    search: "Search"
+    help: "Help"
+    login: "Login"
+    sign_up: "Sign Up"
+
+  footer:
+    learning_project: "A Rails learning project."
+
+  actions:
+    edit: "Edit"
+    delete: "Delete"
+    confirm_delete: "Are you sure?"
+    back: "Back to Inventory"
+    save: "Save Changes"
+    create: "Create Car"
+    cancel: "Cancel"
+
+  cars:
+    index:
+      title: "Cars List"
+      advanced_search: "Advanced Search →"
+      showing: "Showing %{current} of %{total} results"
+      sort_by: "Sort by"
+      sorting:
+        newest: "Newest First"
+        price_asc: "Price: Low to High"
+        price_desc: "Price: High to Low"
+      pagination:
+        previous: "Previous"
+        next: "Next"
+    show:
+      contact_seller: "Contact Seller"
+      not_specified: "Not specified"
+    table:
+      make_model: "Make & Model"
+      no_color: "—"
+    form:
+      new_title: "Add New Car"
+      edit_title: "Edit Car Information"
+
+    messages:
+      created: "Car was successfully created."
+      updated: "Car information was updated."
+      deleted: "Car was removed."
+
+  pages:
+    home:
+      title: "Welcome to Car Advertisements"
+      subtitle: "Find your dream car today"
+    help:
+      title: "Help & Support"

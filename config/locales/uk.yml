@@ -1,0 +1,64 @@
+uk:
+  app_name: "Веб додаток Продаж Авто"
+  activerecord:
+    attributes:
+      car:
+        make: "Марка"
+        model: "Модель"
+        year: "Рік випуску"
+        price: "Ціна"
+        odometer: "Пробіг"
+        color: "Колір"
+        description: "Опис"
+
+  nav:
+    home: "Головна"
+    cars: "Автомобілі"
+    search: "Пошук"
+    help: "Допомога"
+    login: "Увійти"
+    sign_up: "Реєстрація"
+
+  actions:
+    edit: "Редагувати"
+    delete: "Видалити"
+    confirm_delete: "Ви впевнені?"
+    back: "Назад до каталогу"
+    save: "Зберегти зміни"
+    create: "Додати авто"
+    cancel: "Скасувати"
+
+  cars:
+    index:
+      title: "Список автомобілів"
+      advanced_search: "Розширений пошук →"
+      showing: "Показано %{current} з %{total} результатів"
+      sort_by: "Сортувати за"
+      sorting:
+        newest: "Спочатку нові"
+        price_asc: "Дешевші попереду"
+        price_desc: "Дорожчі попереду"
+      pagination:
+        previous: "Назад"
+        next: "Далі"
+    show:
+      contact_seller: "Зв'язатися з продавцем"
+      not_specified: "Не вказано"
+    table:
+      make_model: "Марка та модель"
+      no_color: "—"
+    form:
+      new_title: "Додати нове авто"
+      edit_title: "Редагування автомобіля"
+
+    messages:
+      created: "Автомобіль успішно додано."
+      updated: "Дані автомобіля оновлено."
+      deleted: "Автомобіль видалено."
+
+  pages:
+    home:
+      title: "Ласкаво просимо до Car Ads"
+      subtitle: "Знайдіть авто своєї мрії вже сьогодні"
+    help:
+      title: "Допомога та підтримка"

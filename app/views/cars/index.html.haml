@@ -1,19 +1,19 @@
 .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-12
   .flex.justify-between.items-end.mb-4
-    %h1.text-3xl.font-bold.text-gray-900 Cars List page
-    = link_to "Advanced Search →", "#", class: "text-blue-600 text-sm font-semibold hover:underline"
+    %h1.text-3xl.font-bold.text-gray-900= t('cars.index.title')
+    = link_to t('cars.index.advanced_search'), "#search-form", class: "text-blue-600 text-sm font-semibold hover:underline"
 
   .flex.flex-col.sm:flex-row.justify-between.items-start.sm:items-center.mb-6.gap-4
     %p.text-sm.text-gray-500
-      Showing 1-#{@cars.count} of #{@total_count} results
+      = t('cars.index.showing', current: @cars.count, total: @total_count)
     
     .flex.items-center.gap-3
-      %span.text-sm.text-gray-500.whitespace-nowrap Sort by:
+      %span.text-sm.text-gray-500.whitespace-nowrap= t('cars.index.sort_by')
       .relative
-        %select.block.w-48.pl-3.pr-10.py-2.text-sm.border.border-gray-300.rounded-lg.focus:ring-2.focus:ring-blue-500.focus:border-blue-500.appearance-none.bg-white{onchange: "window.location.href='/cars?sort=' + this.value"}
-          %option{value: "newest", selected: params[:sort] == "newest"} Newest First
-          %option{value: "price_asc", selected: params[:sort] == "price_asc"} Price: Low to High
-          %option{value: "price_desc", selected: params[:sort] == "price_desc"} Price: High to Low
+        %select.block.w-48.pl-3.pr-10.py-2.text-sm.border.border-gray-300.rounded-lg.focus:ring-2.focus:ring-blue-500.focus:border-blue-500.appearance-none.bg-white{onchange: "window.location.href='?locale=#{I18n.locale}&sort=' + this.value"}
+          %option{value: "newest", selected: params[:sort] == "newest"}= t('cars.index.sorting.newest')
+          %option{value: "price_asc", selected: params[:sort] == "price_asc"}= t('cars.index.sorting.price_asc')
+          %option{value: "price_desc", selected: params[:sort] == "price_desc"}= t('cars.index.sorting.price_desc')
         
         .pointer-events-none.absolute.inset-y-0.right-0.flex.items-center.px-2.text-gray-500
           %svg.h-4.w-4{fill: "none", stroke: "currentColor", viewBox: "0 0 24 24"}
@@ -23,30 +23,30 @@
     %table.min-w-full.divide-y.divide-gray-200
       %thead.bg-gray-50
         %tr
-          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest Make & Model
-          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest Year
-          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest Price
-          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest Mileage
-          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest Color
+          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('cars.table.make_model')
+          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.year')
+          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.price')
+          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.odometer')
+          %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.color')
       %tbody.divide-y.divide-gray-200
         - @cars.each do |car|
           %tr.hover:bg-gray-50.transition-colors
             %td.px-6.py-4.whitespace-nowrap
-              = link_to "#{car.make} #{car.model}", car_path(car), class: "text-blue-600 hover:text-blue-800 font-medium"
+              = link_to "#{car.make} #{car.model}", car_path(id: car.id, locale: I18n.locale), class: "text-blue-600 hover:text-blue-800 font-medium"
             %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= car.year
             %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900.font-bold= number_to_currency(car.price, precision: 0)
-            %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= "#{number_with_delimiter(car.odometer)} mi"
-            %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600 Black
+            %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= "#{number_with_delimiter(car.odometer)} km"
+            %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= car.color.presence || t('cars.table.no_color')
 
   - if @cars.total_pages > 1
     .mt-8.flex.items-center.justify-between
       .w-32
         - if @cars.first_page?
           %span.inline-flex.items-center.justify-center.px-4.py-2.border.border-gray-200.rounded-lg.text-sm.font-medium.text-gray-300.bg-white.w-full
-            Previous
+            = t('cars.index.pagination.previous')
         - else
           = link_to url_for(page: @cars.current_page - 1, sort: params[:sort]), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 w-full transition" do
-            Previous
+            = t('cars.index.pagination.previous')
       
       .flex.items-center.gap-2
         - (1..@cars.total_pages).each do |p|
@@ -60,10 +60,10 @@
       .w-32
         - if @cars.last_page?
           %span.inline-flex.items-center.justify-center.px-4.py-2.border.border-gray-200.rounded-lg.text-sm.font-medium.text-gray-300.bg-white.w-full
-            Next
+            = t('cars.index.pagination.next')
         - else
           = link_to url_for(page: @cars.current_page + 1, sort: params[:sort]), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 w-full transition" do
-            Next
+            = t('cars.index.pagination.next')
 
   .mt-8
     = back_to_home_button

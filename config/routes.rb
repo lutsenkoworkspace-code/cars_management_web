@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
-  resources :cars
-  # Main application routes
-  root "pages#home"
-  get "help", to: "pages#help"
+  get "/" => redirect("/#{I18n.default_locale}")
+
+  scope "/:locale", locale: /en|uk/ do
+    root "pages#home", as: :root
+    resources :cars
+    get "help", to: "pages#help", as: :help
+  end
 
   # Health check for uptime monitors
   get "up" => "rails/health#show", as: :rails_health_check

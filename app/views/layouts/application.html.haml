@@ -2,7 +2,7 @@
 %html
   %head
     %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
-    %title Car Advertisements Web
+    %title= t('app_name')
     %meta{content: "width=device-width,initial-scale=1", name: "viewport"}/
     = csrf_meta_tags
     = csp_meta_tag
@@ -14,20 +14,47 @@
       .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
         .flex.justify-between.items-center.py-6
           .flex.items-center
-            %span.text-xl.font-bold.text-gray-900 Car Advertisements Web
+            %span.text-xl.font-bold.text-gray-900= t('app_name')
           %nav.hidden.md:flex.space-x-8.items-center
-            = link_to "Home", root_path, class: nav_link_class(root_path)
-            = link_to "Cars", cars_path, class: nav_link_class(cars_path)
-            %a{href: "#", class: "text-gray-500 hover:text-gray-900"} Search
-            = link_to "Help", help_path, class: nav_link_class(help_path)
+            = link_to t('nav.home'), root_path, class: nav_link_class(root_path)
+            = link_to t('nav.cars'), cars_path, class: nav_link_class(cars_path)
+            %a{href: "#", class: "text-gray-500 hover:text-gray-900"}= t('nav.search')
+            = link_to t('nav.help'), help_path, class: nav_link_class(help_path)
+            
+            .flex.items-center.space-x-2.ml-4
+              = link_to "EN", url_for(locale: :en), class: "text-xs font-bold p-1 rounded #{I18n.locale == :en ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}"
+              %span.text-gray-300.text-xs /
+              = link_to "UA", url_for(locale: :uk), class: "text-xs font-bold p-1 rounded #{I18n.locale == :uk ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}"
+            
             .h-6.w-px.bg-gray-200.mx-2
-            %a.text-gray-500.hover:text-gray-900{href: "#"} Login
-            %a.inline-flex.items-center.px-4.py-2.border.border-transparent.text-sm.font-medium.rounded-md.text-white.bg-blue-600.hover:bg-blue-700{href: "#"} Sign Up
+            %a.text-gray-500.hover:text-gray-900{href: "#"}= t('nav.login')
+            %a.inline-flex.items-center.px-4.py-2.border.border-transparent.text-sm.font-medium.rounded-md.text-white.bg-blue-600.hover:bg-blue-700{href: "#"}= t('nav.sign_up')
 
-    %main.flex-grow
+    %main.flex-grow.relative
+      - if flash.any?
+        .absolute.top-0.left-0.right-0.z-50.pointer-events-none
+          .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.mt-4
+            - flash.each do |type, message|
+              %div{ class: "flash-message pointer-events-auto p-4 rounded-xl border shadow-lg mb-4 flex justify-between items-center transition-opacity duration-500 ease-in-out #{type == 'notice' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'}", 
+                    style: "opacity: 1;" }
+                %span= message
+                %button{ onclick: "this.parentElement.remove()", class: "ml-4 text-lg font-bold opacity-50 hover:opacity-100" } &times;
+
       = yield
 
     %footer.py-12.border-t.border-gray-100
       .max-w-7xl.mx-auto.px-4.text-center
         %p.text-sm.text-gray-400
-          © 2026 Car Advertisements Web. A Rails learning project.
+          © 2026 #{t('app_name')}. #{t('footer.learning_project')}
+
+:javascript
+  document.addEventListener("turbo:load", function() {
+    const flashes = document.querySelectorAll('.flash-message');
+    flashes.forEach(flash => {
+      setTimeout(() => {
+        flash.style.opacity = '0';
+        setTimeout(() => flash.remove(), 500);
+      }, 3000);
+    });
+  });
+  
