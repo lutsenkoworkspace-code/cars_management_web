@@ -27,9 +27,14 @@
               = link_to "UA", url_for(locale: :uk), class: "text-xs font-bold p-1 rounded #{I18n.locale == :uk ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}"
             
             .h-6.w-px.bg-gray-200.mx-2
-            %a.text-gray-500.hover:text-gray-900{href: "#"}= t('nav.login')
-            %a.inline-flex.items-center.px-4.py-2.border.border-transparent.text-sm.font-medium.rounded-md.text-white.bg-blue-600.hover:bg-blue-700{href: "#"}= t('nav.sign_up')
-
+            - if user_signed_in?
+              = link_to t('nav.my_searches'), "#", class: "text-gray-500 hover:text-gray-900"
+              %span.text-gray-900.font-bold= current_user.full_name
+              = button_to t('nav.logout'), destroy_user_session_path, method: :delete, class: "text-gray-500 hover:text-gray-900 text-sm"
+            - else
+              = link_to t('nav.login'), new_user_session_path, class: nav_link_class(new_user_session_path)
+              = link_to t('nav.sign_up'), new_user_registration_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition"
+                          
     %main.flex-grow.relative
       - if flash.any?
         .absolute.top-0.left-0.right-0.z-50.pointer-events-none
@@ -46,15 +51,4 @@
       .max-w-7xl.mx-auto.px-4.text-center
         %p.text-sm.text-gray-400
           © 2026 #{t('app_name')}. #{t('footer.learning_project')}
-
-:javascript
-  document.addEventListener("turbo:load", function() {
-    const flashes = document.querySelectorAll('.flash-message');
-    flashes.forEach(flash => {
-      setTimeout(() => {
-        flash.style.opacity = '0';
-        setTimeout(() => flash.remove(), 500);
-      }, 3000);
-    });
-  });
   

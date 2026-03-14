@@ -1,26 +1,27 @@
 .max-w-5xl.mx-auto.px-4.py-16
-  %h1.text-4xl.font-bold.text-gray-900.mb-4 Welcome to Car Advertisements Web
+  %h1.text-4xl.font-bold.text-gray-900.mb-4= t('pages.home.title')
   %p.text-lg.text-gray-600.mb-12.max-w-3xl
-    Browse, search, and manage car advertisements. This is a simple learning project demonstrating basic CRUD operations and authentication patterns.
+    = t('pages.home.subtitle')
 
   .grid.grid-cols-1.md:grid-cols-2.gap-6
     = link_to cars_path, class: "group p-8 border-2 border-blue-100 rounded-xl bg-blue-50/30 hover:bg-blue-50 transition" do
-      %h3.text-xl.font-bold.text-gray-900.mb-2 Browse Cars
-      %p.text-gray-600 View all car advertisements with sorting and pagination
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.browse_title')
+      %p.text-gray-600= t('pages.home.browse_desc')
+
+    = link_to search_page_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.search_title')
+      %p.text-gray-600= t('pages.home.search_desc')
 
     .p-8.border.border-gray-200.rounded-xl.hover:shadow-sm.transition
-      %h3.text-xl.font-bold.text-gray-900.mb-2 Search
-      %p.text-gray-600 Find specific cars using advanced search filters
-
-    .p-8.border.border-gray-200.rounded-xl.hover:shadow-sm.transition
-      %h3.text-xl.font-bold.text-gray-900.mb-2 Create Account
-      %p.text-gray-600 Sign up to save searches and manage your preferences
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.account_title')
+      %p.text-gray-600= t('pages.home.account_desc')
 
     = link_to help_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block" do
-      %h3.text-xl.font-bold.text-gray-900.mb-2 Help
-      %p.text-gray-600 Learn how to use the platform and find answers to common questions
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.help.title')
+      %p.text-gray-600= t('pages.home.help_desc')
 
   .mt-12.p-8.bg-gray-50.rounded-xl.border.border-gray-100
-    %h3.text-lg.font-bold.text-gray-900.mb-2 About This Project
+    %h3.text-lg.font-bold.text-gray-900.mb-2= t('pages.home.about_title')
     %p.text-gray-600.text-sm.leading-relaxed
-      This is a reference implementation for learning Ruby on Rails with a Tailwind CSS frontend. The UI is intentionally minimal to focus on functionality and best practices.
+      = t('pages.home.about_body')
+      

@@ -39,7 +39,18 @@ class CarsController < ApplicationController
     redirect_to cars_path, notice: t("cars.messages.deleted"), status: :see_other
   end
 
-  def search_page; end
+  def search_page
+    @searched = params.keys.any? { |k| %w[make model min_price max_price year_from year_to min_mileage max_mileage ].include?(k) }
+
+    if @searched
+      @cars = CarsQuery.new(params).call
+                      .page(params[:page])
+                      .per(10)
+      @total_count = @cars.total_count
+    else
+      @cars = Car.none
+    end
+  end
 
   private
 

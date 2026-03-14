@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   get "/" => redirect("/#{I18n.default_locale}")
 
   scope "/:locale", locale: /en|uk/ do
-    root "pages#home", as: :root
+    devise_for :users
+    root "pages#home"
     resources :cars
     get "help", to: "pages#help", as: :help
     get "search", to: "cars#search_page", as: :search_page

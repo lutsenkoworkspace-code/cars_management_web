@@ -1,5 +1,5 @@
 .max-w-4xl.mx-auto.px-4.py-12
-  = link_to cars_path, class: "inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-8 transition-colors" do
+  = link_to cars_path, class: "inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8 transition-colors" do
     %svg.w-4.h-4.mr-2{fill: "none", stroke: "currentColor", viewBox: "0 0 24 24"}
       %path{d: "M10 19l-7-7m0 0l7-7m-7 7h18", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round"}
     = t('cars.actions.back')
@@ -7,7 +7,7 @@
   .bg-white.rounded-2xl.shadow-sm.border.border-gray-100.overflow-hidden
     .p-8.md:p-12
       .mb-8
-        %span.text-xs.font-bold.tracking-widest.text-indigo-500.uppercase= @car.make
+        %span.text-xs.font-bold.tracking-widest.text-blue-500.uppercase= @car.make
         %h1.text-4xl.font-extrabold.text-gray-900.mt-2= @car.model
       
       .grid.grid-cols-1.md:grid-cols-3.gap-8.py-8.border-y.border-gray-50
@@ -22,7 +22,7 @@
           %span.text-xl.font-bold.text-gray-900= @car.color.presence || t('cars.table.no_color')
 
       .py-8
-        .text-3xl.font-bold.text-indigo-600.mb-6
+        .text-3xl.font-bold.text-blue-600.mb-6
           = number_to_currency(@car.price, precision: 0)
         
         %p.text-gray-600.leading-relaxed.text-lg

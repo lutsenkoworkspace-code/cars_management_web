@@ -1,0 +1,61 @@
+.flex.flex-col.sm:flex-row.justify-between.items-start.sm:items-center.mb-6.gap-4
+  %p.text-sm.text-gray-500
+    = t('cars.index.showing', current: @cars.count, total: @total_count)
+  
+  .flex.items-center.gap-3
+    %span.text-sm.text-gray-500.whitespace-nowrap= t('cars.index.sort_by')
+    .relative{ "data-controller": "sort" }
+      %select.block.w-48.pl-3.pr-10.py-2.text-sm.border.border-gray-300.rounded-lg.focus:ring-2.focus:ring-blue-500.focus:border-blue-500.appearance-none.bg-white{ "data-sort-target": "select", "data-action": "change->sort#change" }
+        %option{value: "newest", selected: params[:sort] == "newest" || params[:sort].blank?}= t('cars.index.sorting.newest')
+        %option{value: "price_asc", selected: params[:sort] == "price_asc"}= t('cars.index.sorting.price_asc')
+        %option{value: "price_desc", selected: params[:sort] == "price_desc"}= t('cars.index.sorting.price_desc')
+      .absolute.inset-y-0.right-0.flex.items-center.px-2.pointer-events-none.text-gray-500
+        %svg.h-4.w-4{fill: "none", stroke: "currentColor", viewBox: "0 0 24 24"}
+          %path{d: "M19 9l-7 7-7-7", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round"}
+          
+.bg-white.border.border-gray-200.rounded-xl.shadow-sm.overflow-hidden
+  %table.min-w-full.divide-y.divide-gray-200
+    %thead.bg-gray-50
+      %tr
+        %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('cars.table.make_model')
+        %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.year')
+        %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.price')
+        %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.odometer')
+        %th.px-6.py-4.text-left.text-xs.font-bold.text-gray-400.uppercase.tracking-widest= t('activerecord.attributes.car.color')
+    %tbody.divide-y.divide-gray-200
+      - @cars.each do |car|
+        %tr.hover:bg-gray-50.transition-colors
+          %td.px-6.py-4.whitespace-nowrap
+            = link_to "#{car.make} #{car.model}", car_path(id: car.id, locale: I18n.locale), class: "text-blue-600 hover:text-blue-800 font-medium"
+          %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= car.year
+          %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-900.font-bold= number_to_currency(car.price, precision: 0)
+          %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= "#{number_with_delimiter(car.odometer)} km"
+          %td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-600= car.color.presence || t('cars.table.no_color')
+
+- if @cars.total_pages > 1
+  .mt-8.flex.items-center.justify-between
+    .w-32
+      - if @cars.first_page?
+        %span.inline-flex.items-center.justify-center.px-4.py-2.border.border-gray-200.rounded-lg.text-sm.font-medium.text-gray-300.bg-white.w-full
+          = t('cars.index.pagination.previous')
+      - else
+        = link_to url_for(params.to_unsafe_h.merge(page: @cars.current_page - 1)), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 w-full transition" do
+          = t('cars.index.pagination.previous')
+    
+    .flex.items-center.gap-2
+      - (1..@cars.total_pages).each do |p|
+        - if p == @cars.current_page
+          %span.flex.items-center.justify-center.w-10.h-10.bg-blue-600.text-white.rounded-lg.text-sm.font-bold
+            = p
+        - else
+          = link_to url_for(params.to_unsafe_h.merge(page: p)), class: "flex items-center justify-center w-10 h-10 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition" do
+            = p
+    
+    .w-32
+      - if @cars.last_page?
+        %span.inline-flex.items-center.justify-center.px-4.py-2.border.border-gray-200.rounded-lg.text-sm.font-medium.text-gray-300.bg-white.w-full
+          = t('cars.index.pagination.next')
+      - else
+        = link_to url_for(params.to_unsafe_h.merge(page: @cars.current_page + 1)), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-200 rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 w-full transition" do
+          = t('cars.index.pagination.next')
+  

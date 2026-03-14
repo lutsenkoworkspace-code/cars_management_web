@@ -1,0 +1,68 @@
+.max-w-5xl.mx-auto.py-12.px-4
+  %h1.text-3xl.font-bold.text-gray-900.mb-2= t('cars.search.title')
+  %p.text-gray-600.mb-8= t('cars.search.description')
+
+  = form_with url: search_page_path, method: :get, local: true, class: "space-y-6" do |f|
+    = hidden_field_tag :sort, params[:sort]
+    
+    .grid.grid-cols-1.md:grid-cols-3.gap-x-8.gap-y-4
+      %div
+        = f.label :make, t('activerecord.attributes.car.make'), class: "block text-sm font-medium text-gray-700"
+        = f.text_field :make, value: params[:make], placeholder: t('cars.search.placeholders.make'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500"
+
+      %div
+        = f.label :model, t('activerecord.attributes.car.model'), class: "block text-sm font-medium text-gray-700"
+        = f.text_field :model, value: params[:model], placeholder: t('cars.search.placeholders.model'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500"
+
+      %div
+        = f.label :color, t('activerecord.attributes.car.color'), class: "block text-sm font-medium text-gray-700"
+        = f.text_field :color, value: params[:color], placeholder: t('cars.search.placeholders.color'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500"
+
+    .grid.grid-cols-1.md:grid-cols-2.gap-x-8.gap-y-4
+      .col-span-full.mt-2
+        %label.block.text-sm.font-medium.text-gray-700= t('cars.search.year_range')
+        .grid.grid-cols-2.gap-4
+          = f.number_field :year_from, value: params[:year_from], placeholder: t('cars.search.placeholders.year_from'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :year_to, value: params[:year_to], placeholder: t('cars.search.placeholders.year_to'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+      .col-span-full
+        %label.block.text-sm.font-medium.text-gray-700= t('cars.search.price_range')
+        .grid.grid-cols-2.gap-4
+          = f.number_field :min_price, value: params[:min_price], placeholder: t('cars.search.placeholders.min_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :max_price, value: params[:max_price], placeholder: t('cars.search.placeholders.max_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+      .col-span-full
+        %label.block.text-sm.font-medium.text-gray-700= t('cars.search.mileage_range')
+        .grid.grid-cols-2.gap-4
+          = f.number_field :min_mileage, value: params[:min_mileage], placeholder: t('cars.search.placeholders.min_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :max_mileage, value: params[:max_mileage], placeholder: t('cars.search.placeholders.max_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+    .flex.items-center.justify-between.pt-4
+      .flex.gap-3
+        = f.submit t('nav.search'), class: "px-8 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 cursor-pointer transition-colors"
+        = link_to t('cars.search.reset'), search_page_path, class: "px-8 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium"
+
+      %button.px-4.py-2.border.border-gray-200.rounded.text-gray-400.bg-white.cursor-not-allowed{ disabled: true }
+        = t('cars.search.save_search')
+
+  - if @searched
+    - if @cars.any?
+      .max-w-7xl.mx-auto.py-12
+        %h2.text-2xl.font-bold.text-gray-900.mb-6= t('cars.search.results_title')
+        = render 'table'
+    - else
+      .mt-12.py-16.text-center.bg-gray-50.rounded-xl.border-2.border-dashed.border-gray-200
+        .inline-flex.items-center.justify-center.w-16.h-16.rounded-full.bg-gray-100.text-gray-400.mb-4
+          %svg.w-8.h-8{fill: "none", stroke: "currentColor", viewBox: "0 0 24 24"}
+            %path{d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round"}
+        %h3.text-lg.font-bold.text-gray-900= t('cars.search.no_results.title')
+        %p.text-gray-500= t('cars.search.no_results.text')
+
+  .mt-12.p-6.bg-gray-50.rounded.border.border-gray-200.text-sm.text-gray-600
+    %p
+      %strong= t('cars.search.note_title')
+      = t('cars.search.note_text')
+
+  .mt-8
+    = back_to_home_button
+    
