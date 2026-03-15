@@ -1,5 +1,7 @@
 class CarsController < ApplicationController
   before_action :set_car, only: %i[show edit update destroy]
+  before_action :authenticate_user!, except: %i[index show search_page]
+  before_action :authorize_admin!, only: %i[new create edit update destroy]
 
   def index
     @cars = CarsQuery.new(params).call
@@ -40,19 +42,39 @@ class CarsController < ApplicationController
   end
 
   def search_page
-    @searched = params.keys.any? { |k| %w[make model min_price max_price year_from year_to min_mileage max_mileage ].include?(k) }
+    @search = CarSearch.new(search_params_logic)
+    @searched = params[:car_search].present? || params.keys.any? { |k| %w[make model year_from].include?(k) }
 
     if @searched
-      @cars = CarsQuery.new(params).call
-                      .page(params[:page])
-                      .per(10)
-      @total_count = @cars.total_count
+      if @search.valid?
+        query_params = @search.attributes.merge(sort: params[:sort])
+        @cars = CarsQuery.new(query_params).call
+                        .page(params[:page])
+                        .per(10)
+        @total_count = @cars.total_count
+      else
+        @cars = Car.none
+      end
     else
       @cars = Car.none
     end
   end
 
   private
+
+  def search_params_logic
+    if params[:car_search].present?
+      params.require(:car_search).permit(:make, :model, :color, :min_price, :max_price, :year_from, :year_to, :min_mileage, :max_mileage)
+    else
+      params.permit(:make, :model, :color, :min_price, :max_price, :year_from, :year_to, :min_mileage, :max_mileage)
+    end
+  end
+
+  def authorize_admin!
+    unless current_user&.admin?
+      redirect_to root_path, alert: t("errors.not_authorized", default: "You do not have permission to do this!")
+    end
+  end
 
   def set_car
     @car = Car.find(params[:id])

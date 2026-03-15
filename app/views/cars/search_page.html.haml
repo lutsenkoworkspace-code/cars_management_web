@@ -2,40 +2,47 @@
   %h1.text-3xl.font-bold.text-gray-900.mb-2= t('cars.search.title')
   %p.text-gray-600.mb-8= t('cars.search.description')
 
-  = form_with url: search_page_path, method: :get, local: true, class: "space-y-6" do |f|
+  = form_with model: @search, url: search_page_path, method: :get, local: true, class: "space-y-6" do |f|
     = hidden_field_tag :sort, params[:sort]
     
+    - if @search.errors.any?
+      .mb-6.p-4.rounded.bg-red-50.border.border-red-200
+        %strong.text-red-800= t('errors.messages.not_saved')
+        %ul.mt-2.list-disc.list-inside.text-sm.text-red-700
+          - @search.errors.full_messages.each do |msg|
+            %li= msg
+
     .grid.grid-cols-1.md:grid-cols-3.gap-x-8.gap-y-4
       %div
         = f.label :make, t('activerecord.attributes.car.make'), class: "block text-sm font-medium text-gray-700"
-        = f.text_field :make, value: params[:make], placeholder: t('cars.search.placeholders.make'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500"
+        = f.text_field :make, placeholder: t('cars.search.placeholders.make'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-blue-500"
 
       %div
         = f.label :model, t('activerecord.attributes.car.model'), class: "block text-sm font-medium text-gray-700"
-        = f.text_field :model, value: params[:model], placeholder: t('cars.search.placeholders.model'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500"
+        = f.text_field :model, placeholder: t('cars.search.placeholders.model'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-blue-500"
 
       %div
         = f.label :color, t('activerecord.attributes.car.color'), class: "block text-sm font-medium text-gray-700"
-        = f.text_field :color, value: params[:color], placeholder: t('cars.search.placeholders.color'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:border-blue-500 focus:ring-blue-500"
+        = f.text_field :color, placeholder: t('cars.search.placeholders.color'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-blue-500"
 
     .grid.grid-cols-1.md:grid-cols-2.gap-x-8.gap-y-4
       .col-span-full.mt-2
         %label.block.text-sm.font-medium.text-gray-700= t('cars.search.year_range')
         .grid.grid-cols-2.gap-4
-          = f.number_field :year_from, value: params[:year_from], placeholder: t('cars.search.placeholders.year_from'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
-          = f.number_field :year_to, value: params[:year_to], placeholder: t('cars.search.placeholders.year_to'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :year_from, placeholder: t('cars.search.placeholders.year_from'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :year_to, placeholder: t('cars.search.placeholders.year_to'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
 
       .col-span-full
         %label.block.text-sm.font-medium.text-gray-700= t('cars.search.price_range')
         .grid.grid-cols-2.gap-4
-          = f.number_field :min_price, value: params[:min_price], placeholder: t('cars.search.placeholders.min_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
-          = f.number_field :max_price, value: params[:max_price], placeholder: t('cars.search.placeholders.max_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :min_price, placeholder: t('cars.search.placeholders.min_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :max_price, placeholder: t('cars.search.placeholders.max_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
 
       .col-span-full
         %label.block.text-sm.font-medium.text-gray-700= t('cars.search.mileage_range')
         .grid.grid-cols-2.gap-4
-          = f.number_field :min_mileage, value: params[:min_mileage], placeholder: t('cars.search.placeholders.min_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
-          = f.number_field :max_mileage, value: params[:max_mileage], placeholder: t('cars.search.placeholders.max_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :min_mileage, placeholder: t('cars.search.placeholders.min_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :max_mileage, placeholder: t('cars.search.placeholders.max_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
 
     .flex.items-center.justify-between.pt-4
       .flex.gap-3
@@ -65,4 +72,3 @@
 
   .mt-8
     = back_to_home_button
-    

@@ -20,7 +20,11 @@ uk:
     sign_up: "Реєстрація"
     back_to_home: "Назад на головну"
 
+  footer:
+    learning_project: "Навчальний проєкт Rails."
+
   actions:
+    add_car: "Додати автомобіль"
     edit: "Редагувати"
     delete: "Видалити"
     confirm_delete: "Ви впевнені?"
@@ -125,3 +129,39 @@ uk:
           q: "Це справжній маркетплейс?"
           a: "Ні, це навчальний проект для вивчення Rails та Tailwind CSS. Усі дані наведені лише для демонстрації."
       footer_text: "Це демо-додаток для навчальних цілей. Для питань щодо реалізації звертайтеся до документації Rails або README проекту."
+
+  errors:
+    not_authorized: "У вас немає дозволу на це!"
+    messages:
+      not_saved: "Знайдено помилку:"
+
+  activemodel:
+    attributes:
+      car_search:
+        min_price: "Мінімальна ціна"
+        max_price: "Максимальна ціна"
+        year_from: "Рік (від)"
+        year_to: "Рік (до)"
+        min_mileage: "Пробіг (від)"
+        max_mileage: "Пробіг (до)"
+    errors:
+      models:
+        car_search:
+          attributes:
+            year_to:
+              greater_than_or_equal_to: "має бути не меншим за рік 'від'"
+              less_than_or_equal_to: "не може бути пізніше за %{count} рік"
+            max_price:
+              greater_than_or_equal_to: "має бути не меншою за ціну 'від'"
+            max_mileage:
+              greater_than_or_equal_to: "має бути не більшим за пробіг 'від'"
+            year_from:
+              greater_than_or_equal_to: "має бути не раніше %{count} року"
+              less_than_or_equal_to: "не може бути пізніше за %{count} рік"
+              invalid: "не може бути пізніше за рік 'до'"
+            min_price:
+              greater_than_or_equal_to: "не може бути від'ємною"
+              invalid: "не може бути більшою за максимальну ціну"
+            min_mileage:
+              greater_than_or_equal_to: "не може бути від'ємним"
+              invalid: "не може бути більшим за максимальний пробіг"

@@ -12,7 +12,7 @@
       %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.search_title')
       %p.text-gray-600= t('pages.home.search_desc')
 
-    .p-8.border.border-gray-200.rounded-xl.hover:shadow-sm.transition
+    = link_to new_user_registration_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block hover:border-blue-300" do
       %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.account_title')
       %p.text-gray-600= t('pages.home.account_desc')
 

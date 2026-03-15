@@ -1,6 +1,6 @@
 class CarsQuery
   def initialize(params, scope = Car.all)
-    @params = params
+    @params = params.respond_to?(:to_unsafe_h) ? params.to_unsafe_h.with_indifferent_access : params.with_indifferent_access
     @scope = scope
   end
 

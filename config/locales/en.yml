@@ -24,6 +24,7 @@ en:
     learning_project: "A Rails learning project."
 
   actions:
+    add_car: "Add car"
     edit: "Edit"
     delete: "Delete"
     confirm_delete: "Are you sure?"
@@ -128,3 +129,38 @@ en:
           q: "Is this a real car marketplace?"
           a: "No, this is a learning project demonstrating Rails and Tailwind CSS integration. All data is for demonstration purposes only."
       footer_text: "This is a demo application for learning purposes. For questions about implementation, refer to the Rails documentation or the project README."
+
+  errors:
+    not_authorized: "You do not have permission to do this!"
+    messages:
+      not_saved: "The following error was found:"
+
+  activemodel:
+    attributes:
+      car_search:
+        min_price: "Min price"
+        max_price: "Max price"
+        year_from: "Year (from)"
+        year_to: "Year (to)"
+        min_mileage: "Mileage (from)"
+        max_mileage: "Mileage (to)"
+      models:
+        car_search:
+          attributes:
+            year_to:
+              greater_than_or_equal_to: "must be greater than or equal to the 'From' year"
+              less_than_or_equal_to: "cannot be later than %{count}"
+            max_price:
+              greater_than_or_equal_to: "must be greater than or equal to the 'Min' price"
+            max_mileage:
+              greater_than_or_equal_to: "must be greater than or equal to the 'Min' mileage"
+            year_from:
+              greater_than_or_equal_to: "must be no earlier than %{count}"
+              less_than_or_equal_to: "cannot be later than %{count}"
+              invalid: "cannot be later than the 'To' year"
+            min_price:
+              greater_than_or_equal_to: "cannot be negative"
+              invalid: "cannot be greater than max price"
+            min_mileage:
+              greater_than_or_equal_to: "cannot be negative"
+              invalid: "cannot be greater than max mileage"

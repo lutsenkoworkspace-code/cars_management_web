@@ -29,10 +29,11 @@
           = @car.description
 
       .mt-10.flex.flex-wrap.gap-4
-        = link_to t('actions.edit'), edit_car_path(locale: I18n.locale, id: @car.id), class: "flex-1 inline-flex justify-center items-center px-6 py-3 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition-all shadow-sm"
+        - if user_signed_in? && current_user.admin?
+          = link_to t('actions.edit'), edit_car_path(locale: I18n.locale, id: @car.id), class: "flex-1 inline-flex justify-center items-center px-6 py-3 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition-all shadow-sm"
         
-        %button.flex-1.inline-flex.justify-center.items-center.px-6.py-3.bg-slate-900.text-white.rounded-xl.text-sm.font-bold.hover:bg-slate-800.transition-all.shadow-sm
-          = t('cars.show.contact_seller')
+          %button.flex-1.inline-flex.justify-center.items-center.px-6.py-3.bg-slate-900.text-white.rounded-xl.text-sm.font-bold.hover:bg-slate-800.transition-all.shadow-sm
+            = t('cars.show.contact_seller')
         
-        = button_to car_path(id: @car.id, locale: I18n.locale), method: :delete, data: { confirm: t('cars.actions.confirm_delete') }, class: "flex-1 inline-flex justify-center items-center px-6 py-3 border border-red-100 rounded-xl text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-all" do
-          = t('actions.delete')
+          = button_to car_path(id: @car.id, locale: I18n.locale), method: :delete, data: { turbo_confirm: t('actions.confirm_delete') }, class: "flex-1 inline-flex justify-center items-center px-6 py-3 border border-red-100 rounded-xl text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-all" do
+            = t('actions.delete')
