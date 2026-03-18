@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     devise_for :users
     root "pages#home"
     resources :cars
+    resources :saved_searches, only: [ :index, :create, :destroy ]
     get "help", to: "pages#help", as: :help
     get "search", to: "cars#search_page", as: :search_page
   end

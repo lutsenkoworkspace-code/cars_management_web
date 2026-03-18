@@ -2,7 +2,7 @@
   %h1.text-3xl.font-bold.text-gray-900.mb-2= t('cars.search.title')
   %p.text-gray-600.mb-8= t('cars.search.description')
 
-  = form_with model: @search, url: search_page_path, method: :get, local: true, class: "space-y-6" do |f|
+  = form_with model: @search, url: search_page_path, method: :get, local: true, id: 'main-search-form', class: "space-y-6" do |f|
     = hidden_field_tag :sort, params[:sort]
     
     - if @search.errors.any?
@@ -44,13 +44,28 @@
           = f.number_field :min_mileage, placeholder: t('cars.search.placeholders.min_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
           = f.number_field :max_mileage, placeholder: t('cars.search.placeholders.max_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
 
-    .flex.items-center.justify-between.pt-4
-      .flex.gap-3
-        = f.submit t('nav.search'), class: "px-8 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 cursor-pointer transition-colors"
-        = link_to t('cars.search.reset'), search_page_path, class: "px-8 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium"
+  .flex.items-end.justify-between.gap-4.pt-6.mt-6.border-t.border-gray-100
+    .flex.items-center.gap-3
+      %button{ type: "submit", form: "main-search-form", class: "px-8 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 cursor-pointer transition-colors" }
+        = t('nav.search')
+      = link_to t('cars.search.reset'), search_page_path, class: "px-8 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium"
 
-      %button.px-4.py-2.border.border-gray-200.rounded.text-gray-400.bg-white.cursor-not-allowed{ disabled: true }
-        = t('cars.search.save_search')
+    .flex.items-end.gap-3
+      - if user_signed_in?
+        = form_with model: SavedSearch.new, url: saved_searches_path, method: :post, local: true, class: "flex items-end gap-3" do |sf|
+          = hidden_field_tag :query_params, (params[:car_search] || {}).to_json
+          .flex.flex-col.gap-1
+            %label.text-xs.font-semibold.text-gray-500= t('saved_searches.form.name_label')
+            .flex.items-center.gap-2
+              = sf.text_field :name, placeholder: t('saved_searches.form.name_placeholder'), class: "w-48 px-3 py-2 border border-gray-200 rounded text-sm focus:ring-blue-500"
+              = sf.submit t('cars.search.save_search'), class: "px-4 py-2 bg-white border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium cursor-pointer whitespace-nowrap"
+      - else
+        .flex.flex-col.gap-1
+          %label.text-xs.font-semibold.text-gray-400= t('saved_searches.form.name_label')
+          .flex.items-center.gap-2
+            %input.w-48.px-3.py-2.border.border-gray-100.rounded.text-sm.bg-gray-50{ disabled: true, placeholder: t('saved_searches.form.name_placeholder') }
+            %button.px-4.py-2.border.border-gray-200.rounded.text-gray-400.bg-white.cursor-not-allowed{ disabled: true, title: t('saved_searches.form.login_required') }
+              = t('cars.search.save_search')
 
   - if @searched
     - if @cars.any?
@@ -65,10 +80,11 @@
         %h3.text-lg.font-bold.text-gray-900= t('cars.search.no_results.title')
         %p.text-gray-500= t('cars.search.no_results.text')
 
-  .mt-12.p-6.bg-gray-50.rounded.border.border-gray-200.text-sm.text-gray-600
-    %p
-      %strong= t('cars.search.note_title')
-      = t('cars.search.note_text')
+  - unless user_signed_in?
+    .mt-12.p-6.bg-gray-50.rounded.border.border-gray-200.text-sm.text-gray-600
+      %p
+        %strong= t('cars.search.note_title')
+        = t('cars.search.note_text')
 
   .mt-8
     = back_to_home_button

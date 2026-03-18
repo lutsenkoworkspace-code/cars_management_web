@@ -8,6 +8,7 @@ en:
         year: "Year"
         price: "Price"
         odometer: "Mileage"
+        mileage: "Mileage"
         color: "Color"
         description: "Description"
 
@@ -19,6 +20,7 @@ en:
     login: "Login"
     sign_up: "Sign Up"
     back_to_home: "Back to Home page"
+    new_search: "New Search"
 
   footer:
     learning_project: "A Rails learning project."
@@ -164,3 +166,26 @@ en:
             min_mileage:
               greater_than_or_equal_to: "cannot be negative"
               invalid: "cannot be greater than max mileage"
+
+  saved_searches:
+    title: "My Saved Searches"
+    subtitle: "Manage your saved search criteria and quickly run them again"
+    no_searches: "You don't have any saved searches yet."
+    created_at: "Created on"
+    form:
+      name_label: "Search Name"
+      name_placeholder: "My search"
+      login_required: "Please log in to be able to save your search results."
+    actions:
+      run: "Run Search"
+      price: "Price"
+      mileage: "Mileage"
+    messages:
+      created: "Search saved successfully!"
+      deleted: "Search deleted."
+      error: "Could not save search. Please check the name."
+    any_params: "Any parameters"
+    params:
+      from: "from"
+      to: "to"
+      km: "km"

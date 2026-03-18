@@ -7,4 +7,6 @@ class User < ApplicationRecord
   enum :role, { user: 0, admin: 1 }
 
   validates :full_name, presence: true
+
+  has_many :saved_searches, dependent: :destroy
 end

@@ -8,6 +8,7 @@ uk:
         year: "Рік випуску"
         price: "Ціна"
         odometer: "Пробіг"
+        mileage: "Пробіг"
         color: "Колір"
         description: "Опис"
 
@@ -19,6 +20,7 @@ uk:
     login: "Увійти"
     sign_up: "Реєстрація"
     back_to_home: "Назад на головну"
+    new_search: "Новий пошук"
 
   footer:
     learning_project: "Навчальний проєкт Rails."
@@ -165,3 +167,30 @@ uk:
             min_mileage:
               greater_than_or_equal_to: "не може бути від'ємним"
               invalid: "не може бути більшим за максимальний пробіг"
+
+  saved_searches:
+    title: "Мої збережені пошуки"
+    subtitle: "Керуйте вашими збереженими критеріями пошуку та швидко запускайте їх знову"
+    no_searches: "У вас ще немає збережених пошуків."
+    created_at: "Створено"
+    form:
+      name_label: "Назва пошуку"
+      name_placeholder: "Мій пошук"
+      login_required: "Увійдіть в систему, щоб мати можливість зберігати результати пошуку."
+    actions:
+      run: "Запустити пошук"
+    messages:
+      created: "Пошук успішно збережено!"
+      deleted: "Пошук видалено."
+      error: "Не вдалося зберегти пошук. Перевірте назву."
+    any_params: "Будь-які параметри"
+    params:
+      from: "від"
+      to: "до"
+      km: "км"
+
+  time:
+    formats:
+      short: "%d %b, %H:%M"
+  date:
+    abbr_month_names: [nil, Січ, Лют, Бер, Квіт, Трав, Черв, Лип, Серп, Вер, Жовт, Лис, Груд]
