@@ -81,6 +81,11 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
+  config.include Devise::Test::IntegrationHelpers, type: :request
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.before(:each, type: :request) do
+    default_url_options[:locale] = I18n.default_locale
+  end
 end
