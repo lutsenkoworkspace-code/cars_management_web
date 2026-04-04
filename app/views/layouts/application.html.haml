@@ -28,7 +28,7 @@
             
             .h-6.w-px.bg-gray-200.mx-2
             - if user_signed_in?
-              = link_to t('nav.my_searches'), saved_searches_path, class: "text-gray-500 hover:text-gray-900"
+              = link_to t('nav.my_searches'), user_searches_path, class: "text-gray-500 hover:text-gray-900"
               %span.text-gray-900.font-bold= current_user.full_name
               = button_to t('nav.logout'), destroy_user_session_path, method: :delete, class: "text-gray-500 hover:text-gray-900 text-sm"
             - else

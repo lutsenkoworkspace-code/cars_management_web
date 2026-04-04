@@ -1,8 +1,8 @@
-module SavedSearchesHelper
+module UserSearchesHelper
   def format_query_params(query_params)
     params = query_params.is_a?(String) ? JSON.parse(query_params) : query_params
 
-    return t("saved_searches.any_params") if params.blank? || params.values.all?(&:blank?)
+    return t("user_searches.any_params") if params.blank? || params.values.all?(&:blank?)
 
     parts = []
 
@@ -11,13 +11,13 @@ module SavedSearchesHelper
 
     if params["min_price"].present? || params["max_price"].present?
       price = "#{t('activerecord.attributes.car.price')}: "
-      price += "#{t('saved_searches.params.from')} $#{params['min_price']} " if params["min_price"].present?
-      price += "#{t('saved_searches.params.to')} $#{params['max_price']}" if params["max_price"].present?
+      price += "#{t('user_searches.params.from')} $#{params['min_price']} " if params["min_price"].present?
+      price += "#{t('user_searches.params.to')} $#{params['max_price']}" if params["max_price"].present?
       parts << price
     end
 
     if params["min_mileage"].present? || params["max_mileage"].present?
-      mileage = "#{t('activerecord.attributes.car.mileage')}: #{params['min_mileage'].presence || 0} - #{params['max_mileage'].presence || '∞'} #{t('saved_searches.params.km')}"
+      mileage = "#{t('activerecord.attributes.car.mileage')}: #{params['min_mileage'].presence || 0} - #{params['max_mileage'].presence || '∞'} #{t('user_searches.params.km')}"
       parts << mileage
     end
 

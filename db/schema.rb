@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_15_223458) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_04_110103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,13 +27,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_15_223458) do
     t.integer "year"
   end
 
-  create_table "saved_searches", force: :cascade do |t|
+  create_table "user_searches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
     t.text "query_params"
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_saved_searches_on_user_id"
+    t.index ["user_id"], name: "index_user_searches_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -50,5 +50,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_15_223458) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "saved_searches", "users"
+  add_foreign_key "user_searches", "users"
 end

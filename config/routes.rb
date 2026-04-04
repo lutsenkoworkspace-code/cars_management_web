@@ -5,9 +5,9 @@ Rails.application.routes.draw do
     devise_for :users
     root "pages#home"
     resources :cars
-    resources :saved_searches, only: [ :index, :create, :destroy ]
+    resources :user_searches, only: [ :index, :create, :destroy ]
     get "help", to: "pages#help", as: :help
-    get "search", to: "cars#search_page", as: :search_page
+    get "search", to: "searches#show", as: :search_page
   end
 
   # Health check for uptime monitors

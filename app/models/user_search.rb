@@ -1,4 +1,4 @@
-class SavedSearch < ApplicationRecord
+class UserSearch < ApplicationRecord
   belongs_to :user
 
   serialize :query_params, coder: JSON

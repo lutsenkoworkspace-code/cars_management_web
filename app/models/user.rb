@@ -8,5 +8,5 @@ class User < ApplicationRecord
 
   validates :full_name, presence: true
 
-  has_many :saved_searches, dependent: :destroy
+  has_many :user_searches, dependent: :destroy
 end

@@ -167,7 +167,7 @@ en:
               greater_than_or_equal_to: "cannot be negative"
               invalid: "cannot be greater than max mileage"
 
-  saved_searches:
+  user_searches:
     title: "My Saved Searches"
     subtitle: "Manage your saved search criteria and quickly run them again"
     no_searches: "You don't have any saved searches yet."
