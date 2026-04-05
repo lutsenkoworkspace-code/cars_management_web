@@ -21,6 +21,7 @@ gem "tailwindcss-rails"
 gem "hamlit"
 gem "pagy"
 gem "devise"
+gem "ffaker"
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
@@ -61,7 +62,6 @@ group :development, :test do
   gem "rspec-rails"
   gem "shoulda-matchers"
   gem "factory_bot_rails"
-  gem "ffaker"
 end
 
 group :development do
@@ -83,4 +83,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "simplecov", require: false
+  gem "rails-controller-testing"
 end
+
+gem "kaminari", "~> 1.2"

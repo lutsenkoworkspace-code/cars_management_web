@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  # Main application routes
-  root "pages#home"
-  get "help", to: "pages#help"
+  get "/" => redirect("/#{I18n.default_locale}")
+
+  scope "/:locale", locale: /en|uk/ do
+    devise_for :users
+    root "pages#home"
+    resources :cars
+    resources :user_searches, only: [ :index, :create, :destroy ]
+    get "help", to: "pages#help", as: :help
+    get "search", to: "searches#show", as: :search_page
+  end
 
   # Health check for uptime monitors
   get "up" => "rails/health#show", as: :rails_health_check

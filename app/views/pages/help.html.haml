@@ -1,11 +1,46 @@
-.container.mx-auto.mt-28.px-5.flex.flex-col.items-start
-  %h1.text-4xl.font-bold.mb-4
-    Help & Support
-    
-  %p.text-lg.text-gray-700.max-w-2xl
-    This page will contain instructions for the application. Here you can find information on how to manage car advertisements and use search filters.
+.max-w-3xl.mx-auto.px-4.py-12
+  %h1.text-3xl.font-bold.text-gray-900.mb-8= t('pages.help.title')
 
-  .mt-10
-    = link_to root_path, class: "inline-flex items-center px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition-colors" do
-      %span ← Back to Home
-      
+  %section.mb-10
+    %h2.text-xl.font-bold.text-gray-900.mb-4= t('pages.help.sections.getting_started')
+    
+    .space-y-6
+      %div
+        %h3.font-bold.text-gray-900= t('pages.help.getting_started.browse.title')
+        %p.text-gray-600.text-sm= t('pages.help.getting_started.browse.body')
+        
+      %div
+        %h3.font-bold.text-gray-900= t('pages.help.getting_started.search.title')
+        %p.text-gray-600.text-sm= t('pages.help.getting_started.search.body')
+        
+      %div
+        %h3.font-bold.text-gray-900= t('pages.help.getting_started.account.title')
+        %p.text-gray-600.text-sm= t('pages.help.getting_started.account.body')
+
+  %section.mb-10
+    %h2.text-xl.font-bold.text-gray-900.mb-6= t('pages.help.sections.faq')
+    
+    .space-y-8
+      .border-b.border-gray-100.pb-6
+        %h3.font-bold.text-gray-900.mb-2= t('pages.help.faq.save_search.q')
+        %p.text-gray-600.text-sm= t('pages.help.faq.save_search.a')
+        
+      .border-b.border-gray-100.pb-6
+        %h3.font-bold.text-gray-900.mb-2= t('pages.help.faq.sorting.q')
+        %p.text-gray-600.text-sm= t('pages.help.faq.sorting.a')
+        
+      .border-b.border-gray-100.pb-6
+        %h3.font-bold.text-gray-900.mb-2= t('pages.help.faq.results_per_page.q')
+        %p.text-gray-600.text-sm= t('pages.help.faq.results_per_page.a')
+        
+      .pb-6
+        %h3.font-bold.text-gray-900.mb-2= t('pages.help.faq.real_marketplace.q')
+        %p.text-gray-600.text-sm= t('pages.help.faq.real_marketplace.a')
+
+  .bg-gray-50.rounded-lg.p-6.border.border-gray-100.mb-8
+    %h3.font-bold.text-gray-900.mb-2= t('pages.help.sections.need_more_help')
+    %p.text-gray-600.text-sm= t('pages.help.footer_text')
+
+  .mt-8
+    = back_to_home_button
+    

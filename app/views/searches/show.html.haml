@@ -1,0 +1,90 @@
+.max-w-5xl.mx-auto.py-12.px-4
+  %h1.text-3xl.font-bold.text-gray-900.mb-2= t('cars.search.title')
+  %p.text-gray-600.mb-8= t('cars.search.description')
+
+  = form_with model: @search, url: search_page_path, method: :get, local: true, id: 'main-search-form', class: "space-y-6" do |f|
+    = hidden_field_tag :sort, params[:sort]
+    
+    - if @search.errors.any?
+      .mb-6.p-4.rounded.bg-red-50.border.border-red-200
+        %strong.text-red-800= t('errors.messages.not_saved')
+        %ul.mt-2.list-disc.list-inside.text-sm.text-red-700
+          - @search.errors.full_messages.each do |msg|
+            %li= msg
+
+    .grid.grid-cols-1.md:grid-cols-3.gap-x-8.gap-y-4
+      %div
+        = f.label :make, t('activerecord.attributes.car.make'), class: "block text-sm font-medium text-gray-700"
+        = f.text_field :make, placeholder: t('cars.search.placeholders.make'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-blue-500"
+
+      %div
+        = f.label :model, t('activerecord.attributes.car.model'), class: "block text-sm font-medium text-gray-700"
+        = f.text_field :model, placeholder: t('cars.search.placeholders.model'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-blue-500"
+
+      %div
+        = f.label :color, t('activerecord.attributes.car.color'), class: "block text-sm font-medium text-gray-700"
+        = f.text_field :color, placeholder: t('cars.search.placeholders.color'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2 focus:ring-blue-500"
+
+    .grid.grid-cols-1.md:grid-cols-2.gap-x-8.gap-y-4
+      .col-span-full.mt-2
+        %label.block.text-sm.font-medium.text-gray-700= t('cars.search.year_range')
+        .grid.grid-cols-2.gap-4
+          = f.number_field :year_from, placeholder: t('cars.search.placeholders.year_from'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :year_to, placeholder: t('cars.search.placeholders.year_to'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+      .col-span-full
+        %label.block.text-sm.font-medium.text-gray-700= t('cars.search.price_range')
+        .grid.grid-cols-2.gap-4
+          = f.number_field :min_price, placeholder: t('cars.search.placeholders.min_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :max_price, placeholder: t('cars.search.placeholders.max_price'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+      .col-span-full
+        %label.block.text-sm.font-medium.text-gray-700= t('cars.search.mileage_range')
+        .grid.grid-cols-2.gap-4
+          = f.number_field :min_mileage, placeholder: t('cars.search.placeholders.min_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+          = f.number_field :max_mileage, placeholder: t('cars.search.placeholders.max_mileage'), class: "mt-1 block w-full rounded-md border-gray-300 shadow-sm border p-2"
+
+  .flex.items-end.justify-between.gap-4.pt-6.mt-6.border-t.border-gray-100
+    .flex.items-center.gap-3
+      %button{ type: "submit", form: "main-search-form", class: "px-8 py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 cursor-pointer transition-colors" }
+        = t('nav.search')
+      = link_to t('cars.search.reset'), search_page_path, class: "px-8 py-2 border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium"
+
+    .flex.items-end.gap-3
+      - if user_signed_in?
+        = form_with model: UserSearch.new, url: user_searches_path, method: :post, local: true, class: "flex items-end gap-3" do |sf|
+          = hidden_field_tag :query_params, (params[:car_search] || {}).to_json
+          .flex.flex-col.gap-1
+            %label.text-xs.font-semibold.text-gray-500= t('user_searches.form.name_label')
+            .flex.items-center.gap-2
+              = sf.text_field :name, placeholder: t('user_searches.form.name_placeholder'), class: "w-48 px-3 py-2 border border-gray-200 rounded text-sm focus:ring-blue-500"
+              = sf.submit t('cars.search.save_search'), class: "px-4 py-2 bg-white border border-gray-300 rounded text-gray-700 hover:bg-gray-50 font-medium cursor-pointer whitespace-nowrap"
+      - else
+        .flex.flex-col.gap-1
+          %label.text-xs.font-semibold.text-gray-400= t('user_searches.form.name_label')
+          .flex.items-center.gap-2
+            %input.w-48.px-3.py-2.border.border-gray-100.rounded.text-sm.bg-gray-50{ disabled: true, placeholder: t('user_searches.form.name_placeholder') }
+            %button.px-4.py-2.border.border-gray-200.rounded.text-gray-400.bg-white.cursor-not-allowed{ disabled: true, title: t('user_searches.form.login_required') }
+              = t('cars.search.save_search')
+
+  - if @searched
+    - if @cars.any?
+      .max-w-7xl.mx-auto.py-12
+        %h2.text-2xl.font-bold.text-gray-900.mb-6= t('cars.search.results_title')
+        = render 'cars/table'
+    - else
+      .mt-12.py-16.text-center.bg-gray-50.rounded-xl.border-2.border-dashed.border-gray-200
+        .inline-flex.items-center.justify-center.w-16.h-16.rounded-full.bg-gray-100.text-gray-400.mb-4
+          %svg.w-8.h-8{fill: "none", stroke: "currentColor", viewBox: "0 0 24 24"}
+            %path{d: "M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round"}
+        %h3.text-lg.font-bold.text-gray-900= t('cars.search.no_results.title')
+        %p.text-gray-500= t('cars.search.no_results.text')
+
+  - unless user_signed_in?
+    .mt-12.p-6.bg-gray-50.rounded.border.border-gray-200.text-sm.text-gray-600
+      %p
+        %strong= t('cars.search.note_title')
+        = t('cars.search.note_text')
+
+  .mt-8
+    = back_to_home_button

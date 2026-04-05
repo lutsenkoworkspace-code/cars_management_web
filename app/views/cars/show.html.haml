@@ -1,0 +1,39 @@
+.max-w-4xl.mx-auto.px-4.py-12
+  = link_to cars_path, class: "inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8 transition-colors" do
+    %svg.w-4.h-4.mr-2{fill: "none", stroke: "currentColor", viewBox: "0 0 24 24"}
+      %path{d: "M10 19l-7-7m0 0l7-7m-7 7h18", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round"}
+    = t('cars.actions.back')
+
+  .bg-white.rounded-2xl.shadow-sm.border.border-gray-100.overflow-hidden
+    .p-8.md:p-12
+      .mb-8
+        %span.text-xs.font-bold.tracking-widest.text-blue-500.uppercase= @car.make
+        %h1.text-4xl.font-extrabold.text-gray-900.mt-2= @car.model
+      
+      .grid.grid-cols-1.md:grid-cols-3.gap-8.py-8.border-y.border-gray-50
+        %div
+          %span.block.text-sm.text-gray-400.font-medium.uppercase.tracking-wider= t('activerecord.attributes.car.year')
+          %span.text-xl.font-bold.text-gray-900= @car.year
+        %div
+          %span.block.text-sm.text-gray-400.font-medium.uppercase.tracking-wider= t('activerecord.attributes.car.odometer')
+          %span.text-xl.font-bold.text-gray-900= "#{number_with_delimiter(@car.odometer)} km"
+        %div
+          %span.block.text-sm.text-gray-400.font-medium.uppercase.tracking-wider= t('activerecord.attributes.car.color')
+          %span.text-xl.font-bold.text-gray-900= @car.color.presence || t('cars.table.no_color')
+
+      .py-8
+        .text-3xl.font-bold.text-blue-600.mb-6
+          = number_to_currency(@car.price, precision: 0)
+        
+        %p.text-gray-600.leading-relaxed.text-lg
+          = @car.description
+
+      .mt-10.flex.flex-wrap.gap-4
+        - if user_signed_in? && current_user.admin?
+          = link_to t('actions.edit'), edit_car_path(locale: I18n.locale, id: @car.id), class: "flex-1 inline-flex justify-center items-center px-6 py-3 border border-gray-200 rounded-xl text-sm font-bold text-gray-700 bg-white hover:bg-gray-50 transition-all shadow-sm"
+        
+          %button.flex-1.inline-flex.justify-center.items-center.px-6.py-3.bg-slate-900.text-white.rounded-xl.text-sm.font-bold.hover:bg-slate-800.transition-all.shadow-sm
+            = t('cars.show.contact_seller')
+        
+          = button_to car_path(id: @car.id, locale: I18n.locale), method: :delete, data: { turbo_confirm: t('actions.confirm_delete') }, class: "flex-1 inline-flex justify-center items-center px-6 py-3 border border-red-100 rounded-xl text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 transition-all" do
+            = t('actions.delete')

@@ -1,0 +1,54 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
+    %title= t('app_name')
+    %meta{content: "width=device-width,initial-scale=1", name: "viewport"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body.bg-white.flex.flex-col.min-h-screen
+    %header.border-b.border-gray-100
+      .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8
+        .flex.justify-between.items-center.py-6
+          .flex.items-center
+            %span.text-xl.font-bold.text-gray-900= t('app_name')
+          %nav.hidden.md:flex.space-x-8.items-center
+            = link_to t('nav.home'), root_path, class: nav_link_class(root_path)
+            = link_to t('nav.cars'), cars_path, class: nav_link_class(cars_path)
+            = link_to t('nav.search'), search_page_path, class: nav_link_class(search_page_path)
+            = link_to t('nav.help'), help_path, class: nav_link_class(help_path)
+            
+            .flex.items-center.space-x-2.ml-4
+              = link_to "EN", url_for(locale: :en), class: "text-xs font-bold p-1 rounded #{I18n.locale == :en ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}"
+              %span.text-gray-300.text-xs /
+              = link_to "UA", url_for(locale: :uk), class: "text-xs font-bold p-1 rounded #{I18n.locale == :uk ? 'bg-blue-100 text-blue-600' : 'text-gray-400 hover:text-gray-600'}"
+            
+            .h-6.w-px.bg-gray-200.mx-2
+            - if user_signed_in?
+              = link_to t('nav.my_searches'), user_searches_path, class: "text-gray-500 hover:text-gray-900"
+              %span.text-gray-900.font-bold= current_user.full_name
+              = button_to t('nav.logout'), destroy_user_session_path, method: :delete, class: "text-gray-500 hover:text-gray-900 text-sm"
+            - else
+              = link_to t('nav.login'), new_user_session_path, class: nav_link_class(new_user_session_path)
+              = link_to t('nav.sign_up'), new_user_registration_path, class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition"
+                          
+    %main.flex-grow.relative
+      - if flash.any?
+        .absolute.top-0.left-0.right-0.z-50.pointer-events-none
+          .max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.mt-4
+            - flash.each do |type, message|
+              %div{ class: "flash-message pointer-events-auto p-4 rounded-xl border shadow-lg mb-4 flex justify-between items-center transition-opacity duration-500 ease-in-out #{type == 'notice' ? 'bg-green-50 border-green-200 text-green-700' : 'bg-red-50 border-red-200 text-red-700'}", 
+                    style: "opacity: 1;" }
+                %span= message
+                %button{ onclick: "this.parentElement.remove()", class: "ml-4 text-lg font-bold opacity-50 hover:opacity-100" } &times;
+
+      = yield
+
+    %footer.py-12.border-t.border-gray-100
+      .max-w-7xl.mx-auto.px-4.text-center
+        %p.text-sm.text-gray-400
+          © 2026 #{t('app_name')}. #{t('footer.learning_project')}
+  

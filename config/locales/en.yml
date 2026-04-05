@@ -1,31 +1,191 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  app_name: "Car Advertisements Web"
+  activerecord:
+    attributes:
+      car:
+        make: "Make"
+        model: "Model"
+        year: "Year"
+        price: "Price"
+        odometer: "Mileage"
+        mileage: "Mileage"
+        color: "Color"
+        description: "Description"
+
+  nav:
+    home: "Home"
+    cars: "Cars"
+    search: "Search"
+    help: "Help"
+    login: "Login"
+    sign_up: "Sign Up"
+    back_to_home: "Back to Home page"
+    new_search: "New Search"
+
+  footer:
+    learning_project: "A Rails learning project."
+
+  actions:
+    add_car: "Add car"
+    edit: "Edit"
+    delete: "Delete"
+    confirm_delete: "Are you sure?"
+    back: "Back to Inventory"
+    save: "Save Changes"
+    create: "Create Car"
+    cancel: "Cancel"
+
+  cars:
+    index:
+      title: "Cars List"
+      advanced_search: "Advanced Search →"
+      showing: "Showing %{current} of %{total} results"
+      sort_by: "Sort by"
+      sorting:
+        newest: "Newest First"
+        price_asc: "Price: Low to High"
+        price_desc: "Price: High to Low"
+      pagination:
+        previous: "Previous"
+        next: "Next"
+    show:
+      contact_seller: "Contact Seller"
+      not_specified: "Not specified"
+    table:
+      make_model: "Make & Model"
+      no_color: "—"
+    form:
+      new_title: "Add New Car"
+      edit_title: "Edit Car Information"
+
+    messages:
+      created: "Car was successfully created."
+      updated: "Car information was updated."
+      deleted: "Car was removed."
+
+    search:
+      title: "Search Cars"
+      description: "Use the filters below to find cars that match your criteria"
+      year_range: "Year Range"
+      price_range: "Price Range ($)"
+      mileage_range: "Mileage Range (km)"
+      reset: "Reset"
+      save_search: "Save Search"
+      results_title: "Search Results"
+      note_title: "Note:"
+      note_text: "You must be logged in to save search criteria. Saved searches can be accessed from the 'My Searches' page."
+      placeholders:
+        make: "Any Make (e.g., Toyota)"
+        model: "e.g., Camry"
+        year_from: "From (e.g., 2020)"
+        year_to: "To (e.g., 2023)"
+        min_price: "Min price"
+        max_price: "Max price"
+        min_mileage: "Min mileage"
+        max_mileage: "Max mileage"
+        color: "e.g., Red, Blue"
+      no_results:
+        title: "No cars found"
+        text: "Try adjusting your filters to find what you are looking for."
+
+  pages:
+    home:
+      title: "Welcome to Car Advertisements"
+      subtitle: "Find your dream car today"
+      browse_title: "Browse Cars"
+      browse_desc: "View all car advertisements with sorting and pagination"
+      search_title: "Search"
+      search_desc: "Find specific cars using advanced search filters"
+      account_title: "Create Account"
+      account_desc: "Sign up to save searches and manage your preferences"
+      help_desc: "Learn how to use the platform and find answers to common questions"
+      about_title: "About This Project"
+      about_body: "This is a reference implementation for learning Ruby on Rails with a Tailwind CSS frontend. The UI is intentionally minimal to focus on functionality and best practices."
+    help:
+      title: "Help & Support"
+      sections:
+        getting_started: "Getting Started"
+        faq: "Frequently Asked Questions"
+        need_more_help: "Need More Help?"
+      getting_started:
+        browse:
+          title: "1. Browse Cars"
+          body: "Navigate to the Cars page to view all available car advertisements. You can sort by price, year, or mileage, and use pagination to browse through listings."
+        search:
+          title: "2. Search for Specific Cars"
+          body: "Use the Search page to filter cars by make, model, year range, and price range. This allows you to quickly find cars that match your criteria."
+        account:
+          title: "3. Create an Account"
+          body: "Sign up for an account to save your searches and access them later. This is useful if you're actively looking for a car and want to track specific criteria."
+      faq:
+        save_search:
+          q: "How do I save a search?"
+          a: "You must be logged in to save searches. After performing a search, click the 'Save Search' button to store your search criteria."
+        sorting:
+          q: "How do I sort the car listings?"
+          a: "On the Cars page, use the dropdown menu to select a sorting option. You can sort by price (low to high or high to low), year, or mileage."
+        results_per_page:
+          q: "How many results are shown per page?"
+          a: "By default, 10 results are shown per page. Use the pagination controls at the bottom of the page to navigate through additional results."
+        real_marketplace:
+          q: "Is this a real car marketplace?"
+          a: "No, this is a learning project demonstrating Rails and Tailwind CSS integration. All data is for demonstration purposes only."
+      footer_text: "This is a demo application for learning purposes. For questions about implementation, refer to the Rails documentation or the project README."
+
+  errors:
+    not_authorized: "You do not have permission to do this!"
+    messages:
+      not_saved: "The following error was found:"
+
+  activemodel:
+    attributes:
+      car_search:
+        min_price: "Min price"
+        max_price: "Max price"
+        year_from: "Year (from)"
+        year_to: "Year (to)"
+        min_mileage: "Mileage (from)"
+        max_mileage: "Mileage (to)"
+      models:
+        car_search:
+          attributes:
+            year_to:
+              greater_than_or_equal_to: "must be greater than or equal to the 'From' year"
+              less_than_or_equal_to: "cannot be later than %{count}"
+            max_price:
+              greater_than_or_equal_to: "must be greater than or equal to the 'Min' price"
+            max_mileage:
+              greater_than_or_equal_to: "must be greater than or equal to the 'Min' mileage"
+            year_from:
+              greater_than_or_equal_to: "must be no earlier than %{count}"
+              less_than_or_equal_to: "cannot be later than %{count}"
+              invalid: "cannot be later than the 'To' year"
+            min_price:
+              greater_than_or_equal_to: "cannot be negative"
+              invalid: "cannot be greater than max price"
+            min_mileage:
+              greater_than_or_equal_to: "cannot be negative"
+              invalid: "cannot be greater than max mileage"
+
+  user_searches:
+    title: "My Saved Searches"
+    subtitle: "Manage your saved search criteria and quickly run them again"
+    no_searches: "You don't have any saved searches yet."
+    created_at: "Created on"
+    form:
+      name_label: "Search Name"
+      name_placeholder: "My search"
+      login_required: "Please log in to be able to save your search results."
+    actions:
+      run: "Run Search"
+      price: "Price"
+      mileage: "Mileage"
+    messages:
+      created: "Search saved successfully!"
+      deleted: "Search deleted."
+      error: "Could not save search. Please check the name."
+    any_params: "Any parameters"
+    params:
+      from: "from"
+      to: "to"
+      km: "km"

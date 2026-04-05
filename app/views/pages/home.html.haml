@@ -1,14 +1,27 @@
-.container.mx-auto.mt-28.px-5.flex.flex-col.items-start
-  %h1.text-4xl.font-bold.mb-4
-    Hello world!!!
-    
-  %p.text-lg.text-gray-700
-    Welcome to Car Advertisements Web.
+.max-w-5xl.mx-auto.px-4.py-16
+  %h1.text-4xl.font-bold.text-gray-900.mb-4= t('pages.home.title')
+  %p.text-lg.text-gray-600.mb-12.max-w-3xl
+    = t('pages.home.subtitle')
 
-  .mt-8.flex.flex-col.space-y-2
-    = link_to "Help Page", help_path, class: "text-blue-600 hover:underline"
-    
-    -# Placerholders
-    %span.text-gray-400 Cars List (Coming soon)
-    %span.text-gray-400 Search (Coming soon)
-    
+  .grid.grid-cols-1.md:grid-cols-2.gap-6
+    = link_to cars_path, class: "group p-8 border-2 border-blue-100 rounded-xl bg-blue-50/30 hover:bg-blue-50 transition" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.browse_title')
+      %p.text-gray-600= t('pages.home.browse_desc')
+
+    = link_to search_page_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.search_title')
+      %p.text-gray-600= t('pages.home.search_desc')
+
+    = link_to new_user_registration_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block hover:border-blue-300" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.home.account_title')
+      %p.text-gray-600= t('pages.home.account_desc')
+
+    = link_to help_path, class: "p-8 border border-gray-200 rounded-xl hover:shadow-sm transition block" do
+      %h3.text-xl.font-bold.text-gray-900.mb-2= t('pages.help.title')
+      %p.text-gray-600= t('pages.home.help_desc')
+
+  .mt-12.p-8.bg-gray-50.rounded-xl.border.border-gray-100
+    %h3.text-lg.font-bold.text-gray-900.mb-2= t('pages.home.about_title')
+    %p.text-gray-600.text-sm.leading-relaxed
+      = t('pages.home.about_body')
+      

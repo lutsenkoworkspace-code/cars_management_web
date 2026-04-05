@@ -1,0 +1,14 @@
+.max-w-7xl.mx-auto.px-4.sm:px-6.lg:px-8.py-12
+  .flex.justify-between.items-end.mb-4
+    %h1.text-3xl.font-bold.text-gray-900= t('cars.index.title')
+
+    - if user_signed_in? && current_user.admin?
+      = link_to t('actions.add_car'), new_car_path, class: "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-bold"
+    
+    = link_to t('cars.index.advanced_search'), search_page_path, class: "text-blue-600 text-sm font-semibold hover:underline"
+
+  = render 'table'
+
+  .mt-8
+    = back_to_home_button
+    
