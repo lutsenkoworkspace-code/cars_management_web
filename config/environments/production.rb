@@ -81,7 +81,6 @@ Rails.application.configure do
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   config.hosts << ".onrender.com"
-  #
-  # Skip DNS rebinding protection for the default health check endpoint.
-  # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  config.solid_cable.connects_to = { database: { writing: :primary } }
 end
