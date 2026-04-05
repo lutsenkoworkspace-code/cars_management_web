@@ -9,7 +9,7 @@ RSpec.describe CarsQuery do
     it "returns all cars ordered by newest if no params are applied" do
       query = CarsQuery.new({})
       results = query.call
-      expect(results.to_a).to eq([car_toyota, car_bmw, car_ford])
+      expect(results.to_a).to eq([ car_toyota, car_bmw, car_ford ])
     end
 
     it "filters by make (case insensitive partial match)" do
@@ -45,17 +45,17 @@ RSpec.describe CarsQuery do
     describe "sorting" do
       it "sorts by price_asc" do
         query = CarsQuery.new(sort: "price_asc")
-        expect(query.call.to_a).to eq([car_toyota, car_ford, car_bmw])
+        expect(query.call.to_a).to eq([ car_toyota, car_ford, car_bmw ])
       end
 
       it "sorts by price_desc" do
         query = CarsQuery.new(sort: "price_desc")
-        expect(query.call.to_a).to eq([car_bmw, car_ford, car_toyota])
+        expect(query.call.to_a).to eq([ car_bmw, car_ford, car_toyota ])
       end
 
       it "sorts by newest explicitly" do
         query = CarsQuery.new(sort: "newest")
-        expect(query.call.to_a).to eq([car_toyota, car_bmw, car_ford])
+        expect(query.call.to_a).to eq([ car_toyota, car_bmw, car_ford ])
       end
     end
   end
