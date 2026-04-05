@@ -35,8 +35,8 @@ jobs:
           ruby-version: '3.4.7'
           bundler-cache: true
 
-      - name: Set up database schema
-        run: bin/rails db:schema:load
+      - name: Set up database
+        run: bin/rails db:prepare
 
       - name: Run tests
         run: bundle exec rspec
