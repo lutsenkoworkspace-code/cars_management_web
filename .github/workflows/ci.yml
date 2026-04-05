@@ -38,6 +38,9 @@ jobs:
       - name: Set up database
         run: bin/rails db:create db:schema:load
 
+      - name: Build assets
+        run: bin/rails tailwindcss:build
+
       - name: Run tests
         run: bundle exec rspec
 
