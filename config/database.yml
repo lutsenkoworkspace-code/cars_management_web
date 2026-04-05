@@ -85,7 +85,13 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary:
+  primary: &primary_production
     adapter: postgresql
     url: <%= ENV["DATABASE_URL"] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  cache:
+    <<: *primary_production
+  queue:
+    <<: *primary_production
+  cable:
+    <<: *primary_production
